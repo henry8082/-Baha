@@ -16,7 +16,7 @@ line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
 def sendText1(event):  #傳送文字
     try:
-        url = "https://fuli.gamer.com.tw/"
+        url = "https://fuli.gamer.com.tw/shop.php"
 
         res = requests.get(url)
         
@@ -35,38 +35,159 @@ def sendText1(event):  #傳送文字
             row.append(img)
             for j in alltext:
                 if '商品數量' in j.text:
-                    print(j.text.strip('\n').replace(' ',':'))
-                    row.append(j.text.strip('\n').replace(' ',':'))
+                    print(j.text.strip('\n').split('\n'))
+                    row.append(j.text.strip('\n').split('\n')[0])
+                    row.append(j.text.strip('\n').split('\n')[1])
                 else:
                     row.append(j.text.strip('\n').replace('\n',':'))
                     print(j.text.strip('\n').replace('\n',':'))
             print("---------------------")
             listall.append(row)
-        columns=[]
+        content_bubble = []
         for i in listall:
-            columns.append(                    
-                CarouselColumn(
-                        thumbnail_image_url=i[2],
-                        title=i[0],
-                        text='{}\n{}\n{}'.format(i[3].replace(' ','：'),i[4].replace(' ',''),i[5]),
-                        actions=
-                            URITemplateAction(
-                                label='連結',
-                                uri=i[1]
-                            )
-                    )
-                )
-        
-        message = TemplateSendMessage(
-            alt_text='轉盤樣板',
-            template=CarouselTemplate(columns
-            )
-        )
-        
-        message = TextSendMessage(  
-            text = "請提供希望查證之訊息的關鍵字"
-        )
-        line_bot_api.reply_message(event.reply_token,message)
+            content_bubble.append(
+                {
+                  "type": "bubble",
+                  "hero": {
+                    "type": "image",
+                    "url": i[2],
+                    "size": "full",
+                    "aspectRatio": "20:13",
+                    "aspectMode": "cover",
+                  },
+                  "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": i[0],
+                        "weight": "bold",
+                        "size": "xl"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "margin": "lg",
+                        "spacing": "sm",
+                        "contents": [
+                          {
+                            "type": "box",
+                            "layout": "baseline",
+                            "spacing": "sm",
+                            "contents": [
+                              {
+                                "type": "text",
+                                "text": i[3].split(' ')[0],
+                                "color": "#aaaaaa",
+                                "size": "sm",
+                                "flex": 1
+                              },
+                              {
+                                "type": "text",
+                                "text": i[3].split(' ')[1],
+                                "wrap": True,
+                                "color": "#666666",
+                                "size": "sm",
+                                "flex": 5
+                              }
+                            ]
+                          },
+                          {
+                            "type": "box",
+                            "layout": "baseline",
+                            "spacing": "sm",
+                            "contents": [
+                              {
+                                "type": "text",
+                                "text": i[4].split(' ')[0],
+                                "color": "#aaaaaa",
+                                "size": "sm",
+                                "flex": 1
+                              },
+                              {
+                                "type": "text",
+                                "text": i[4].split(' ')[1],
+                                "wrap": True,
+                                "color": "#FF0000",
+                                "size": "sm",
+                                "flex": 5
+                              }
+                            ]
+                          },
+                          {
+                            "type": "box",
+                            "layout": "baseline",
+                            "spacing": "sm",
+                            "contents": [
+                              {
+                                "type": "text",
+                                "text": i[5].split(':')[0],
+                                "color": "#aaaaaa",
+                                "size": "sm",
+                                "flex": 1
+                              },
+                              {
+                                "type": "text",
+                                "text": i[5].split(':')[1],
+                                "wrap": True,
+                                "color": "#666666",
+                                "size": "sm",
+                                "flex": 5
+                              }
+                            ]
+                          },
+                          {
+                            "type": "box",
+                            "layout": "baseline",
+                            "spacing": "sm",
+                            "contents": [
+                              {
+                                "type": "text",
+                                "text": i[6].split(':')[0],
+                                "color": "#aaaaaa",
+                                "size": "sm",
+                                "flex": 1
+                              },
+                              {
+                                "type": "text",
+                                "text": i[6].split(':')[1],
+                                "wrap": True,
+                                "color": "#666666",
+                                "size": "sm",
+                                "flex": 5
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "footer": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "button",
+                        "style": "link",
+                        "height": "sm",
+                        "action": {
+                          "type": "uri",
+                          "label": "商品連結",
+                          "uri": i[1]
+                        }
+                      },
+                      {
+                        "type": "spacer",
+                        "size": "sm"
+                      }
+                    ],
+                    "flex": 0
+                  }
+            })
+        bubble = {"type": "carousel","contents":content_bubble}
+        message = FlexSendMessage(alt_text="巴哈勇者福利社", contents=bubble)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
