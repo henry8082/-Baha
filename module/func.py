@@ -49,12 +49,11 @@ def sendText1(event):  #傳送文字
                         thumbnail_image_url=i[2],
                         title=i[0],
                         text='{}\n{}\n{}'.format(i[3].replace(' ','：'),i[4].replace(' ',''),i[5]),
-                        actions=[
+                        actions=
                             URITemplateAction(
                                 label='連結',
                                 uri=i[1]
                             )
-                        ]
                     )
                 )
         
