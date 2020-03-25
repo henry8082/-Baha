@@ -42,12 +42,10 @@ def sendText1(event):  #傳送文字
                     print(j.text.strip('\n').replace('\n',':'))
             print("---------------------")
             listall.append(row)
-            
-        message = TemplateSendMessage(
-            alt_text='轉盤樣板',
-            template=CarouselTemplate(
-                columns=[
-                    CarouselColumn(
+        columns=[]
+        for i in listall:
+            columns.append(                    
+                CarouselColumn(
                         thumbnail_image_url=i[2],
                         title=i[0],
                         text='{}\n{}\n{}'.format(i[3].replace(' ','：'),i[4].replace(' ',''),i[5]),
@@ -58,7 +56,11 @@ def sendText1(event):  #傳送文字
                             )
                         ]
                     )
-                for i in listall]
+                )
+        
+        message = TemplateSendMessage(
+            alt_text='轉盤樣板',
+            template=CarouselTemplate(columns
             )
         )
         
