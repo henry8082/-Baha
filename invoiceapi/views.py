@@ -36,6 +36,12 @@ def callback(request):
                 elif mtext == '@顯示本期中獎號碼':
                     func.showCurrent(event)
 
+                elif mtext == '@test1':
+                    func.sendText1(event)
+                    
+                elif mtext == '@test2':
+                    func.sendText2(event)                    
+                    
                 elif mtext == '@顯示前期中獎號碼':
                     func.showOld(event)
 
