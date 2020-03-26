@@ -204,6 +204,7 @@ def sendText1(event):  #傳送文字
         
         bubble = {"type": "carousel","contents":content_bubble}
         message = FlexSendMessage(alt_text="巴哈勇者福利社", contents=bubble)
+        line_bot_api.reply_message(event.reply_token,message)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
