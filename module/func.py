@@ -26,7 +26,7 @@ def sendText1(event):  #傳送文字
         for i in find_all_a:
             title = i.find('h2','items-title').text
             href = i['href']
-            img = find_all_a[0].find('img')['src']
+            img = i.find('img')['src']
             alltext = i.find_all('div','items-instructions')
             print(f'{title}\n{href}')
             row = []
