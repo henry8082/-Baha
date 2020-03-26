@@ -1,8 +1,7 @@
 from django.conf import settings
 
 from linebot import LineBotApi
-from linebot.models import TextSendMessage,TemplateSendMessage,CarouselTemplate,URITemplateAction,CarouselColumn
-
+from linebot.models import *
 import requests
 from bs4 import BeautifulSoup as bs
 
