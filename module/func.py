@@ -53,7 +53,7 @@ def sendText1(event):  #傳送文字
                     "url": i[2],
                     "size": "full",
                     "aspectRatio": "20:13",
-                    "aspectMode": "cover",
+                    "aspectMode": "cover"
                   },
                   "body": {
                     "type": "box",
