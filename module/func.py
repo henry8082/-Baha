@@ -219,8 +219,7 @@ def sendText2(event):  #傳送文字
         find_all_a = soup.find_all('a','items-card')
                 
         message = [TextSendMessage(  
-            text = """165-詐騙闢謠及詐騙LINEID查詢機器人使用說明：\n
-您所輸入的訊息機器人會分別幫您查詢詐騙LINEID及165-詐騙闢謠中的訊息"""),
+            text = find_all_a[0].text),
 TextSendMessage( text = find_all_a[1].text),TextSendMessage(  
             text = find_all_a[2].text)]
         line_bot_api.reply_message(event.reply_token,message)
