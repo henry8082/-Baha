@@ -46,146 +46,162 @@ def sendText1(event):  #傳送文字
         content_bubble = []
         for i in listall:
             content_bubble.append(
-                {
-                  "type": "bubble",
-                  "hero": {
-                    "type": "image",
-                    "url": i[2],
-                    "size": "full",
-                    "aspectRatio": "20:13",
-                    "aspectMode": "cover"
-                  },
-                  "body": {
+        {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": i[2],
+            "size": "full",
+            "aspectMode": "cover",
+            "aspectRatio": "20:20"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": i[0],
+                "weight": "bold",
+                "size": "xl",
+                "wrap": True,
+                "align": "center"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": [
+                  {
                     "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": i[0],
-                        "weight": "bold",
-                        "size": "xl"
-                      },
-                      {
-                        "type": "box",
-                        "layout": "vertical",
-                        "margin": "lg",
-                        "spacing": "sm",
-                        "contents": [
-                          {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                              {
-                                "type": "text",
-                                "text": i[3].split(' ')[0],
-                                "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex": 1
-                              },
-                              {
-                                "type": "text",
-                                "text": i[3].split(' ')[1],
-                                "wrap": True,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 5
-                              }
-                            ]
-                          },
-                          {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                              {
-                                "type": "text",
-                                "text": i[4].split(' ')[0],
-                                "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex": 1
-                              },
-                              {
-                                "type": "text",
-                                "text": i[4].split(' ')[1],
-                                "wrap": True,
-                                "color": "#FF0000",
-                                "size": "sm",
-                                "flex": 5
-                              }
-                            ]
-                          },
-                          {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                              {
-                                "type": "text",
-                                "text": i[5].split(':')[0],
-                                "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex": 1
-                              },
-                              {
-                                "type": "text",
-                                "text": i[5].split(':')[1],
-                                "wrap": True,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 5
-                              }
-                            ]
-                          },
-                          {
-                            "type": "box",
-                            "layout": "baseline",
-                            "spacing": "sm",
-                            "contents": [
-                              {
-                                "type": "text",
-                                "text": i[6].split(':')[0],
-                                "color": "#aaaaaa",
-                                "size": "sm",
-                                "flex": 1
-                              },
-                              {
-                                "type": "text",
-                                "text": i[6].split(':')[1],
-                                "wrap": True,
-                                "color": "#666666",
-                                "size": "sm",
-                                "flex": 5
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "footer": {
-                    "type": "box",
-                    "layout": "vertical",
+                    "layout": "baseline",
                     "spacing": "sm",
                     "contents": [
                       {
-                        "type": "button",
-                        "style": "link",
-                        "height": "sm",
-                        "action": {
-                          "type": "uri",
-                          "label": "商品連結",
-                          "uri": i[1]
-                        }
+                        "type": "text",
+                        "text": i[3].split(' ')[0],
+                        "color": "#000000",
+                        "size": "sm",
+                        "flex": 2,
+                        "weight": "bold"
                       },
                       {
-                        "type": "spacer",
-                        "size": "sm"
+                        "type": "text",
+                        "text": i[3].split(' ')[1],
+                        "wrap": True,
+                        "color": "#2300D1",
+                        "size": "sm",
+                        "flex": 5,
+                        "align": "start",
+                        "weight": "bold"
                       }
-                    ],
-                    "flex": 0
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": i[4].split(' ')[0],
+                        "color": "#000000",
+                        "size": "sm",
+                        "flex": 2,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": i[4].split(' ')[1],
+                        "wrap": True,
+                        "color": "#FF0000",
+                        "size": "sm",
+                        "flex": 5,
+                        "align": "start",
+                        "weight": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": i[5].split(':')[0],
+                        "color": "#000000",
+                        "size": "sm",
+                        "flex": 2,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": i[5].split(':')[1],
+                        "wrap": True,
+                        "color": "#2300D1",
+                        "size": "sm",
+                        "flex": 5,
+                        "gravity": "center",
+                        "weight": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": i[6].split(':')[0],
+                        "color": "#000000",
+                        "size": "sm",
+                        "flex": 2,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": i[6].split(':')[1],
+                        "wrap": True,
+                        "color": "#2300D1",
+                        "size": "sm",
+                        "flex": 5,
+                        "weight": "bold"
+                      }
+                    ]
                   }
-            })
+                ]
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "button",
+                "style": "link",
+                "action": {
+                  "type": "uri",
+                  "label": "商品連結",
+                  "uri": i[1]
+                },
+                "color": "#FFFFFF",
+                "height": "sm"
+              },
+              {
+                "type": "spacer",
+                "size": "sm"
+              }
+            ],
+            "flex": 0,
+            "backgroundColor": "#0000ff"
+          }
+        })
+        
         bubble = {"type": "carousel","contents":content_bubble}
         message = FlexSendMessage(alt_text="巴哈勇者福利社", contents=bubble)
     except:
