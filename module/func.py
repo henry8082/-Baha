@@ -2,7 +2,7 @@ from django.conf import settings
 
 from linebot import LineBotApi
 from linebot.models import TextSendMessage,TemplateSendMessage,CarouselTemplate,URITemplateAction,CarouselColumn,FlexSendMessage
-
+from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup as bs
 
@@ -14,36 +14,31 @@ from invoiceapi.models import users
     
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.getenv('GOOGLE_CHROME_BIN',None)
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(chrome_options=chrome_options,executable_path=os.getenv('CHROMEDRIVER_PATH',None))
+
 def sendText1(event):  #傳送文字
     try:
         url = "https://fuli.gamer.com.tw/shop.php"
 
-        res = requests.get(url)
         
-        soup = bs(res.text,'lxml')
-        find_all_a = soup.find_all('a','items-card')
+        driver.get(url)
+        #selenium-使用 https://jzchangmark.wordpress.com/2015/03/16/selenium-%E4%BD%BF%E7%94%A8-css-locator-%E5%AE%9A%E4%BD%8D%E5%85%83%E4%BB%B6/
+        titles = driver.find_elements_by_class_name('items-title')
+        hrefs = driver.find_elements_by_css_selector("a[class=items-card][href^='https']")#找尋tag為a,class為items-card,href的開頭為https
+        imgs = driver.find_elements_by_css_selector("div.card-left.flex-center > img")
+        Popularitys = driver.find_elements_by_css_selector("div.card-right div.items-instructions")
+        
         listall = []
-        for i in find_all_a:
-            title = i.find('h2','items-title').text
-            href = i['href']
-            img = i.find('img')['src']
-            print(img)
-            alltext = i.find_all('div','items-instructions')
-            print(f'{title}\n{href}')
-            row = []
-            row.append(title)
-            row.append(href)
-            row.append(img)
-            for j in alltext:
-                if '商品數量' in j.text:
-                    print(j.text.strip('\n').split('\n'))
-                    row.append(j.text.strip('\n').split('\n')[0])
-                    row.append(j.text.strip('\n').split('\n')[1])
-                else:
-                    row.append(j.text.strip('\n').replace('\n',':'))
-                    print(j.text.strip('\n').replace('\n',':'))
-            print("---------------------")
-            listall.append(row)
+        for i in range(len(titles)):
+            x,y,z=0+i*3,1+i*3,2+i*3
+            
+            listall.append([titles[i].text,hrefs[i].get_attribute('href'),imgs[i].get_attribute('src'),Popularitys[x].text.split('\n')[0],Popularitys[x].text.split('\n')[1],Popularitys[y].text.replace(' ',':',1),Popularitys[z].text.replace('\n',':',1).replace('\n',"")])
+    
+
         content_bubble = []
         for i in listall:
             content_bubble.append(
