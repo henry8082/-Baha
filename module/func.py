@@ -81,6 +81,9 @@ def sendText1(event):  #傳送文字
                 "align": "center"
               },
               {
+                "type": "filler"
+              },
+              {
                 "type": "box",
                 "layout": "vertical",
                 "margin": "lg",
@@ -391,7 +394,7 @@ def sendText3(event):  #傳送文字
                 "style": "link",
                 "action": {
                   "type": "uri",
-                  "label": "商品連結",
+                  "label": i[14],
                   "uri": i[1]
                 },
                 "color": "#FFFFFF",
