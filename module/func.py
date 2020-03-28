@@ -4,11 +4,6 @@ from linebot import LineBotApi
 from linebot.models import TextSendMessage,TemplateSendMessage,CarouselTemplate,URITemplateAction,CarouselColumn,FlexSendMessage
 
 import requests
-try:
-    from bs4 import BeautifulSoup as bs
-except :
-    pass
-
 import re
 import datetime
 try:
@@ -17,11 +12,10 @@ except ImportError:
     import xml.etree.ElementTree as ET
 from invoiceapi.models import users
 
-import urllib
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
 
-def sendText1(event):  #傳送文字
+def sendText1(event):  #查詢勇者福利社
     try:
         url = "https://fuli.gamer.com.tw/shop.php"
 
@@ -227,6 +221,7 @@ def sendText1(event):  #傳送文字
         line_bot_api.reply_message(event.reply_token,message)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
+        
 def sendText2(event):  #傳送文字
     try:
         url = 'https://home.gamer.com.tw/creationCategory.php?owner=blackXblue&c=370818'
@@ -238,13 +233,13 @@ def sendText2(event):  #傳送文字
         </h1>''')
         findalltext = textall.findall(res)
         
-        today= datetime.date.today()
-        formatted_today = today.strftime('%m/%d')
-        if formatted_today in findalltext[0][1]:
-            url2 = 'https://home.gamer.com.tw/'+findalltext[0][0]
-            res2 = requests.get(url2).text
-            textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
-            findalltext2 = textall2.findall(res2)
+        # today= datetime.date.today()
+        # formatted_today = today.strftime('%m/%d')
+        # if formatted_today in findalltext[0][1]:
+        url2 = 'https://home.gamer.com.tw/'+findalltext[0][0]
+        res2 = requests.get(url2).text
+        textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
+        findalltext2 = textall2.findall(res2)
             
         bubble = {
   "type": "bubble",
@@ -384,7 +379,6 @@ def sendText2(event):  #傳送文字
   }
 }  
         message = FlexSendMessage(alt_text="巴哈動漫通", contents=bubble)
-
         line_bot_api.reply_message(event.reply_token,message)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
