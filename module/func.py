@@ -214,7 +214,7 @@ def sendText1(event):  #傳送文字
               }
             ],
             "flex": 0,
-            "backgroundColor": "#0000ff"
+            "backgroundColor": "#0000E3"
           }
         })
         
