@@ -9,17 +9,218 @@ try:
 except :
     pass
 
+import re
 
 try:
     import xml.etree.cElementTree as ET
 except ImportError:
     import xml.etree.ElementTree as ET
 from invoiceapi.models import users
-    
+
+import urllib
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
 
 def sendText1(event):  #傳送文字
+    try:
+        url = "https://fuli.gamer.com.tw/shop.php"
+
+        
+        res = requests.get(url).text
+        
+        textall = re.compile(r'''(<a class="items-card" href="(.+)">
+<div class="card-content">
+<div class="card-left flex-center">
+<img src="(.+)" alt="(.+)">
+</div>
+<div class="card-right">
+<h2 class="items-title">(.+)</h2>
+<div class="items-instructions">
+<p>(.+)<span> (.+)</span></p>
+<p>(.+)<span> (.+)</span></p>
+</div>
+<div class="items-instructions">
+<p>
+(.+)
+<span> (.+)</span>
+</p>
+</div>
+<div class="items-instructions">
+<span class="type-tag ">(.+)</span>
+<div class="price"><p class="digital">(.+)</p>(.+)</div>
+</div>
+<div class="flex-center card-btn c-primary">(.+)</div>
+</div>
+</div>
+</a>)''')
+        
+        findalltext = textall.findall(res)
+
+        content_bubble = []
+        for i in findalltext:
+            content_bubble.append(
+        {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": i[2],
+            "size": "full",
+            "aspectMode": "cover",
+            "aspectRatio": "20:20"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": i[3],
+                "weight": "bold",
+                "size": "xl",
+                "wrap": True,
+                "align": "center"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": i[5],
+                        "color": "#000000",
+                        "size": "sm",
+                        "flex": 2,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": i[6],
+                        "wrap": True,
+                        "color": "#2300D1",
+                        "size": "sm",
+                        "flex": 5,
+                        "align": "start",
+                        "weight": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": i[7],
+                        "color": "#000000",
+                        "size": "sm",
+                        "flex": 2,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": i[8],
+                        "wrap": True,
+                        "color": "#FF0000",
+                        "size": "sm",
+                        "flex": 5,
+                        "align": "start",
+                        "weight": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": i[9],
+                        "color": "#000000",
+                        "size": "sm",
+                        "flex": 2,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": i[10],
+                        "wrap": True,
+                        "color": "#2300D1",
+                        "size": "sm",
+                        "flex": 5,
+                        "gravity": "center",
+                        "weight": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": i[11],
+                        "color": "#000000",
+                        "size": "sm",
+                        "flex": 2,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": i[12]+i[13],
+                        "wrap": True,
+                        "color": "#2300D1",
+                        "size": "sm",
+                        "flex": 5,
+                        "weight": "bold"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "button",
+                "style": "link",
+                "action": {
+                  "type": "uri",
+                  "label": i[14],
+                  "uri": i[1]
+                },
+                "color": "#FFFFFF",
+                "height": "sm"
+              },
+              {
+                "type": "spacer",
+                "size": "sm"
+              }
+            ],
+            "flex": 0,
+            "backgroundColor": "#0000ff"
+          }
+        })
+        
+        bubble = {"type": "carousel","contents":content_bubble}
+        message = FlexSendMessage(alt_text="巴哈勇者福利社", contents=bubble)
+        line_bot_api.reply_message(event.reply_token,message)
+    except:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
+def sendText3(event):  #傳送文字
     try:
         url = "https://fuli.gamer.com.tw/shop.php"
 
