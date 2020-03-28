@@ -227,7 +227,7 @@ def sendText1(event):  #傳送文字
         line_bot_api.reply_message(event.reply_token,message)
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
-def sendText3(event):  #傳送文字
+def sendText2(event):  #傳送文字
     try:
         url = 'https://home.gamer.com.tw/creationCategory.php?owner=blackXblue&c=370818'
         res = requests.get(url).text
@@ -576,7 +576,7 @@ def sendText3(event):  #傳送文字
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
-def sendText2(event):  #傳送文字
+def sendText3(event):  #傳送文字
     try:
         url = "https://fuli.gamer.com.tw/shop.php"
 
