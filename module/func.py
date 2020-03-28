@@ -10,7 +10,7 @@ except :
     pass
 
 import re
-
+import datetime
 try:
     import xml.etree.cElementTree as ET
 except ImportError:
@@ -229,6 +229,162 @@ def sendText1(event):  #傳送文字
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 def sendText3(event):  #傳送文字
     try:
+        url = 'https://home.gamer.com.tw/creationCategory.php?owner=blackXblue&c=370818'
+        res = requests.get(url).text
+        
+        textall = re.compile('''<h1>
+        <img src="https://i2.bahamut.com.tw/spacer.gif" class="IMG-C09" />
+        <a class="TS1" href="(.+)">(.+)</a>
+        </h1>''')
+        findalltext = textall.findall(res)
+        
+        today= datetime.date.today()
+        formatted_today = today.strftime('%m/%d')
+        if formatted_today in findalltext[0][1]:
+            url2 = 'https://home.gamer.com.tw/'+findalltext[0][0]
+            res2 = requests.get(url2).text
+            textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
+            findalltext2 = textall2.findall(res2)
+            
+        bubble = {
+  "type": "bubble",
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "image",
+            "url": "https://p2.bahamut.com.tw/HOME/53/creation_blackxblue.PNG",
+            "size": "full",
+            "aspectMode": "cover",
+            "gravity": "center",
+            "flex": 1
+          }
+        ]
+      }
+    ],
+    "paddingAll": "0px"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "contents": [],
+                "size": "xl",
+                "wrap": True,
+                "text": findalltext2[0][0],
+                "color": "#0000C6",
+                "weight": "bold"
+              },
+              {
+                "type": "text",
+                "contents": [],
+                "size": "xl",
+                "wrap": True,
+                "text": findalltext2[0][2],
+                "color": "#0000C6",
+                "weight": "bold"
+              },
+              {
+                "type": "text",
+                "color": "#ffffffcc",
+                "size": "md",
+                "contents": [
+                  {
+                    "type": "span",
+                    "text": findalltext2[0][3],
+                    "color": "#2828FF"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "color": "#ffffffcc",
+                "size": "md",
+                "contents": [
+                  {
+                    "type": "span",
+                    "text": findalltext2[0][4],
+                    "color": "#2828FF"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "color": "#ffffffcc",
+                "size": "md",
+                "contents": [
+                  {
+                    "type": "span",
+                    "text": findalltext2[0][5],
+                    "color": "#2828FF"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "color": "#ffffffcc",
+                "size": "md",
+                "contents": [
+                  {
+                    "type": "span",
+                    "text": findalltext2[0][6],
+                    "color": "#2828FF"
+                  }
+                ]
+              }
+            ],
+            "spacing": "sm"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "contents": [],
+                    "size": "xxl",
+                    "wrap": True,
+                    "margin": "lg",
+                    "color": "#FF0000",
+                    "text": findalltext2[0][7],
+                    "weight": "bold"
+                  }
+                ]
+              }
+            ],
+            "paddingAll": "13px",
+            "backgroundColor": "#ffffff1A",
+            "cornerRadius": "2px",
+            "margin": "xl"
+          }
+        ]
+      }
+    ],
+    "paddingAll": "20px",
+    "backgroundColor": "#F0DAD2"
+  }
+}  
+        message = FlexSendMessage(alt_text="巴哈動漫通", contents=bubble)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
         url = "https://fuli.gamer.com.tw/shop.php"
 
         
