@@ -214,7 +214,11 @@ def sendText1(event):  #傳送文字
               }
             ],
             "flex": 0,
-            "backgroundColor": "#0000E3"
+          },
+          "styles": {
+            "footer": {
+              "backgroundColor": "#0000E3"
+            }
           }
         })
         
