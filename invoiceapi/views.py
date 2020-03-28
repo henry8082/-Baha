@@ -36,10 +36,10 @@ def callback(request):
                 elif mtext == '@顯示本期中獎號碼':
                     func.showCurrent(event)
 
-                elif mtext == '@test1':
+                elif mtext == '@巴哈勇者福利社':
                     func.sendText1(event)
                     
-                elif mtext == '@test2':
+                elif mtext == '@動漫通':
                     func.sendText2(event)                    
                     
                 elif mtext == '@顯示前期中獎號碼':
