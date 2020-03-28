@@ -40,7 +40,10 @@ def callback(request):
                     func.sendText1(event)
                     
                 elif mtext == '@動漫通':
-                    func.sendText2(event)                    
+                    func.sendText2(event)  
+                    
+                elif mtext == '@動漫通1':
+                    func.sendText3(event)      
                     
                 elif mtext == '@顯示前期中獎號碼':
                     func.showOld(event)
