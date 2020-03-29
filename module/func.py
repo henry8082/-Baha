@@ -379,7 +379,7 @@ def sendText2(event):  #傳送文字
         message = FlexSendMessage(alt_text="巴哈動漫通", contents=bubble)
         line_bot_api.reply_message(event.reply_token,message)
     except Exception as e:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=traceback.print_exc()))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage('traceback.format_exc():\n'))
 
 def sendText3(event):  #傳送文字
     try:
@@ -403,7 +403,7 @@ def sendText3(event):  #傳送文字
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(findalltext[0])))
 
     except Exception as e:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text = traceback.print_exc()))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text = 'traceback.format_exc():\n%s' % traceback.format_exc()))
 
 def sendUse(event):  #使用說明
     try:
