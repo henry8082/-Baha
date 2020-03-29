@@ -383,13 +383,14 @@ def sendText2(event):  #傳送文字
 
 def sendText3(event):  #傳送文字
     try:
-        url = 'https://home.gamer.com.tw/creationCategory.php?owner=blackXblue&c=370818'
+        url = 'https://home.gamer.com.tw/creationCategory.php?v=1&owner=blackXblue&c=370818'
         res = requests.get(url).text
         
-        textall = re.compile('''<h1>
-        <img src="https://i2.bahamut.com.tw/spacer.gif" class="IMG-C09" />
-        <a class="TS1" href="(.+)">(.+)</a>
-        </h1>''')
+        textall = re.compile('''<tr>
+<td align="left"><img src="https://i2.bahamut.com.tw/spacer.gif" class="IMG-C09" /><a href="(.+)">(.+)</a></td>
+<td nowrap="nowrap"><a href="//home.gamer.com.tw/blackXblue">X洨妹</a></td>
+<td nowrap="nowrap">(.+)</td>
+</tr>''')
         findalltext = textall.findall(res)
         
         # today= datetime.date.today()
