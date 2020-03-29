@@ -377,8 +377,23 @@ def sendText2(event):  #傳送文字
     "backgroundColor": "#F0DAD2"
   }
 }  
-        message = FlexSendMessage(alt_text="動漫通", contents=bubble2)
-        line_bot_api.reply_message(event.reply_token,message)
+
+        bubble3 ={
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": findalltext2[0][7],
+        "color": "#FF0000",
+        "size": "xl"
+      }
+    ]
+  }
+}
+        line_bot_api.reply_message(event.reply_token,FlexSendMessage(alt_text="動漫通", contents=bubble3))
     except Exception as e:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text = 'traceback.format_exc():\n%s' % traceback.format_exc()))
 
