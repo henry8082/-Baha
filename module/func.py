@@ -384,14 +384,14 @@ def sendText2(event):  #傳送文字
 def sendText3(event):  #傳送文字
     try:
         url = 'https://home.gamer.com.tw/creationCategory.php?v=1&owner=blackXblue&c=370818'
-        res = requests.get(url).text
+        res1 = requests.get(url).text
         
         textall = re.compile('''<tr>
 <td align="left"><img src="https://i2.bahamut.com.tw/spacer.gif" class="IMG-C09" /><a href="(.+)">(.+)</a></td>
 <td nowrap="nowrap"><a href="//home.gamer.com.tw/blackXblue">X洨妹</a></td>
 <td nowrap="nowrap">(.+)</td>
 </tr>''')
-        findalltext = textall.findall(res)
+        findalltext = textall.findall(res1)
         
         # today= datetime.date.today()
         # formatted_today = today.strftime('%m/%d')
@@ -401,7 +401,7 @@ def sendText3(event):  #傳送文字
         # textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
         # findalltext2 = textall2.findall(res2)
         # text = '{}\n{}\n{}\n{}\n{}\n{}'.format(findalltext2[0][0],findalltext2[0][2],findalltext2[0][3],findalltext2[0][4],findalltext2[0][5],findalltext2[0][6])
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(res)))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(res1[13682:15681])))
 
     except Exception as e:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text = 'traceback.format_exc():\n%s' % traceback.format_exc()))
