@@ -6,6 +6,7 @@ from linebot.models import TextSendMessage,TemplateSendMessage,CarouselTemplate,
 import requests
 import re
 import datetime
+import traceback
 try:
     import xml.etree.cElementTree as ET
 except ImportError:
@@ -377,32 +378,32 @@ def sendText2(event):  #傳送文字
 }  
         message = FlexSendMessage(alt_text="巴哈動漫通", contents=bubble)
         line_bot_api.reply_message(event.reply_token,message)
-    except:
+    except Exception as e:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
 
 def sendText3(event):  #傳送文字
-    url = 'https://home.gamer.com.tw/creationCategory.php?owner=blackXblue&c=370818'
-    res = requests.get(url).text
-    
-    textall = re.compile('''<h1>
-    <img src="https://i2.bahamut.com.tw/spacer.gif" class="IMG-C09" />
-    <a class="TS1" href="(.+)">(.+)</a>
-    </h1>''')
-    findalltext = textall.findall(res)
-    
-    # today= datetime.date.today()
-    # formatted_today = today.strftime('%m/%d')
-    # if formatted_today in findalltext[0][1]:
-    url2 = 'https://home.gamer.com.tw/'+findalltext[0][0]
-    res2 = requests.get(url2).text
-    textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
-    findalltext2 = textall2.findall(res2)
-    text = '{}\n{}\n{}\n{}\n{}\n{}'.format(findalltext2[0][0],findalltext2[0][2],findalltext2[0][3],findalltext2[0][4],findalltext2[0][5],findalltext2[0][6])
     try:
+        url = 'https://home.gamer.com.tw/creationCategory.php?owner=blackXblue&c=370818'
+        res = requests.get(url).text
+        
+        textall = re.compile('''<h1>
+        <img src="https://i2.bahamut.com.tw/spacer.gif" class="IMG-C09" />
+        <a class="TS1" href="(.+)">(.+)</a>
+        </h1>''')
+        findalltext = textall.findall(res)
+        
+        # today= datetime.date.today()
+        # formatted_today = today.strftime('%m/%d')
+        # if formatted_today in findalltext[0][1]:
+        url2 = 'https://home.gamer.com.tw/'+findalltext[0][0]
+        res2 = requests.get(url2).text
+        textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
+        findalltext2 = textall2.findall(res2)
+        text = '{}\n{}\n{}\n{}\n{}\n{}'.format(findalltext2[0][0],findalltext2[0][2],findalltext2[0][3],findalltext2[0][4],findalltext2[0][5],findalltext2[0][6])
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(findalltext[0])))
 
     except:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text = traceback.print_exc()))
 
 def sendUse(event):  #使用說明
     try:
