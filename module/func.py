@@ -399,7 +399,7 @@ def sendText3(event):  #傳送文字
     findalltext2 = textall2.findall(res2)
     text = '{}\n{}\n{}\n{}\n{}\n{}'.format(findalltext2[0][0],findalltext2[0][2],findalltext2[0][3],findalltext2[0][4],findalltext2[0][5],findalltext2[0][6])
     try:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text= url2))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(findalltext[0])))
 
     except:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤！'))
