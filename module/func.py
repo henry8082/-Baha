@@ -400,7 +400,7 @@ def sendText3(event):  #傳送文字
         # textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
         # findalltext2 = textall2.findall(res2)
         # text = '{}\n{}\n{}\n{}\n{}\n{}'.format(findalltext2[0][0],findalltext2[0][2],findalltext2[0][3],findalltext2[0][4],findalltext2[0][5],findalltext2[0][6])
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(findalltext)))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(res)))
 
     except Exception as e:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text = 'traceback.format_exc():\n%s' % traceback.format_exc()))
