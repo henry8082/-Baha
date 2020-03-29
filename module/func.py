@@ -401,9 +401,145 @@ def sendText3(event):  #傳送文字
         res2 = requests.get(url2).text
         textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
         findalltext2 = textall2.findall(res2)
-        all_text = '{}\n{}\n{}\n{}\n{}\n{}'.format(findalltext2[0][0],findalltext2[0][2],findalltext2[0][3],findalltext2[0][4],findalltext2[0][5],findalltext2[0][6])
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(all_text)))
 
+        bubble = {
+  "type": "bubble",
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "image",
+            "url": "https://p2.bahamut.com.tw/HOME/53/creation_blackxblue.PNG",
+            "size": "full",
+            "aspectMode": "cover",
+            "gravity": "center",
+            "flex": 1
+          }
+        ]
+      }
+    ],
+    "paddingAll": "0px"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "size": "xl",
+                "wrap": True,
+                "text": findalltext2[0][0],
+                "color": "#0000C6",
+                "weight": "bold"
+              },
+              {
+                "type": "text",
+                "size": "xl",
+                "wrap": True,
+                "text": findalltext2[0][2],
+                "color": "#0000C6",
+                "weight": "bold"
+              },
+              {
+                "type": "text",
+                "color": "#ffffffcc",
+                "size": "md",
+                "contents": [
+                  {
+                    "type": "span",
+                    "text": findalltext2[0][3],
+                    "color": "#2828FF"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "color": "#ffffffcc",
+                "size": "md",
+                "contents": [
+                  {
+                    "type": "span",
+                    "text": findalltext2[0][4],
+                    "color": "#2828FF"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "color": "#ffffffcc",
+                "size": "md",
+                "contents": [
+                  {
+                    "type": "span",
+                    "text": findalltext2[0][5],
+                    "color": "#2828FF"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "color": "#ffffffcc",
+                "size": "md",
+                "contents": [
+                  {
+                    "type": "span",
+                    "text": findalltext2[0][6],
+                    "color": "#2828FF"
+                  }
+                ]
+              }
+            ],
+            "spacing": "sm"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "size": "xxl",
+                    "wrap": True,
+                    "margin": "lg",
+                    "color": "#FF0000",
+                    "text": findalltext2[0][7],
+                    "weight": "bold"
+                  }
+                ]
+              }
+            ],
+            "paddingAll": "13px",
+            "backgroundColor": "#ffffff1A",
+            "cornerRadius": "2px",
+            "margin": "xl"
+          }
+        ]
+      }
+    ],
+    "paddingAll": "20px",
+    "backgroundColor": "#F0DAD2"
+  }
+}  
+        message = FlexSendMessage(alt_text="巴哈動漫通", contents=bubble)
+        # all_text = '{}\n{}\n{}\n{}\n{}\n{}'.format(findalltext2[0][0],findalltext2[0][2],findalltext2[0][3],findalltext2[0][4],findalltext2[0][5],findalltext2[0][6])
+        # line_bot_api.reply_message(event.reply_token,TextSendMessage(text= '{}'.format(all_text)))
+        line_bot_api.reply_message(event.reply_token,message)
     except Exception as e:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text = 'traceback.format_exc():\n%s' % traceback.format_exc()))
 
