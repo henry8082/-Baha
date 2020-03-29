@@ -380,17 +380,119 @@ def sendText2(event):  #傳送文字
 
         bubble3 ={
   "type": "bubble",
+  "hero": {
+    "type": "image",
+    "size": "full",
+    "aspectRatio": "20:13",
+    "aspectMode": "cover",
+    "url": "https://p2.bahamut.com.tw/HOME/53/creation_blackxblue.PNG"
+  },
   "body": {
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "md",
+    "contents": [
+      {
+        "type": "text",
+        "text": findalltext2[0][0],
+        "size": "xl",
+        "color": "#0000E3",
+        "weight": "bold"
+      },
+      {
+        "type": "text",
+        "text": findalltext2[0][2],
+        "wrap": True,
+        "color": "#0008FF",
+        "size": "xl",
+        "weight": "bold"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": findalltext2[0][3],
+                "size": "sm",
+                "align": "start",
+                "color": "#0000E3"
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": findalltext2[0][4],
+                "size": "sm",
+                "align": "start",
+                "color": "#0000E3"
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": findalltext2[0][5],
+                "size": "sm",
+                "align": "start",
+                "color": "#0000E3"
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": findalltext2[0][6],
+                "size": "sm",
+                "align": "start",
+                "color": "#0000E3"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "backgroundColor": "#FFD9EC"
+  },
+  "footer": {
     "type": "box",
     "layout": "vertical",
     "contents": [
       {
-        "type": "text",
-        "text": findalltext2[0][7],
-        "color": "#FF0000",
-        "size": "xl"
+        "type": "spacer",
+        "size": "xxl"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": findalltext2[0][7],
+            "size": "xl",
+            "align": "center",
+            "color": "#FF0000"
+          }
+        ],
+        "cornerRadius": "5px"
       }
-    ]
+    ],
+    "backgroundColor": "#FFD9EC"
   }
 }
         line_bot_api.reply_message(event.reply_token,FlexSendMessage(alt_text="動漫通", contents=bubble3))
