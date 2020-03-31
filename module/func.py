@@ -44,7 +44,7 @@ def sendText1(event):  #查詢勇者福利社
 <span class="type-tag ">(.+)</span>
 <div class="price"><p class="digital">(.+)</p>(.+)</div>
 </div>
-<div class="flex-center card-btn c-primary">(.+)</div>
+<div class="(.+)">(.+)</div>
 </div>
 </div>
 </a>)''')
@@ -197,7 +197,7 @@ def sendText1(event):  #查詢勇者福利社
                 "style": "link",
                 "action": {
                   "type": "uri",
-                  "label": i[14],
+                  "label": i[15],
                   "uri": i[1]
                 },
                 "color": "#FFFFFF",
@@ -242,7 +242,12 @@ def sendText2(event):  #傳送文字
         res2 = requests.get(url2).text
         textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
         findalltext2 = textall2.findall(res2)
-            
+        colors = []
+        for i in range(3,7):
+            if  findalltext2[0][7][-1]+'.' in findalltext2[0][i]: colors.append(['#FF0000','bold'])
+            else:colors.append(["#000000","regular"])
+        
+        
         bubble2 = {
   "type": "bubble",
   "header": {
@@ -302,7 +307,7 @@ def sendText2(event):  #傳送文字
                   {
                     "type": "span",
                     "text": findalltext2[0][3],
-                    "color": "#2828FF"
+                    "color": colors[0]
                   }
                 ]
               },
@@ -314,7 +319,7 @@ def sendText2(event):  #傳送文字
                   {
                     "type": "span",
                     "text": findalltext2[0][4],
-                    "color": "#2828FF"
+                    "color": colors[1]
                   }
                 ]
               },
@@ -326,7 +331,7 @@ def sendText2(event):  #傳送文字
                   {
                     "type": "span",
                     "text": findalltext2[0][5],
-                    "color": "#2828FF"
+                    "color": colors[2]
                   }
                 ]
               },
@@ -338,7 +343,7 @@ def sendText2(event):  #傳送文字
                   {
                     "type": "span",
                     "text": findalltext2[0][6],
-                    "color": "#2828FF"
+                    "color": colors[3]
                   }
                 ]
               }
@@ -408,6 +413,9 @@ def sendText2(event):  #傳送文字
         "weight": "bold"
       },
       {
+        "type": "separator"
+      },
+      {
         "type": "box",
         "layout": "vertical",
         "spacing": "sm",
@@ -421,7 +429,8 @@ def sendText2(event):  #傳送文字
                 "text": findalltext2[0][3],
                 "size": "sm",
                 "align": "start",
-                "color": "#0000E3"
+                "color": colors[0][0],
+                "weight": colors[0][1]
               }
             ]
           },
@@ -434,7 +443,8 @@ def sendText2(event):  #傳送文字
                 "text": findalltext2[0][4],
                 "size": "sm",
                 "align": "start",
-                "color": "#0000E3"
+                "color": colors[1][0],
+                "weight": colors[1][1]
               }
             ]
           },
@@ -447,7 +457,8 @@ def sendText2(event):  #傳送文字
                 "text": findalltext2[0][5],
                 "size": "sm",
                 "align": "start",
-                "color": "#0000E3"
+                "color": colors[2][0],
+                "weight": colors[2][1]
               }
             ]
           },
@@ -460,14 +471,15 @@ def sendText2(event):  #傳送文字
                 "text": findalltext2[0][6],
                 "size": "sm",
                 "align": "start",
-                "color": "#0000E3"
+                "color": colors[3][0],
+                "weight": colors[3][1]
               }
             ]
           }
         ]
       }
     ],
-    "backgroundColor": "#FFD9EC"
+    "backgroundColor": "#f9f9f9"
   },
   "footer": {
     "type": "box",
@@ -486,13 +498,14 @@ def sendText2(event):  #傳送文字
             "text": findalltext2[0][7],
             "size": "xl",
             "align": "center",
-            "color": "#FF0000"
+            "color": "#FF0000",
+            "weight": "bold"
           }
         ],
         "cornerRadius": "5px"
       }
     ],
-    "backgroundColor": "#FFD9EC"
+    "backgroundColor": "#f9f9f9"
   }
 }
         line_bot_api.reply_message(event.reply_token,FlexSendMessage(alt_text="動漫通", contents=bubble3))
