@@ -248,140 +248,140 @@ def sendText2(event):  #傳送文字
             else:colors.append(["#000000","regular"])
         
         
-        bubble2 = {
-  "type": "bubble",
-  "header": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "image",
-            "url": "https://p2.bahamut.com.tw/HOME/53/creation_blackxblue.PNG",
-            "size": "full",
-            "aspectMode": "cover",
-            "gravity": "center",
-            "flex": 1
-          }
-        ]
-      }
-    ],
-    "paddingAll": "0px"
-  },
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "size": "xl",
-                "wrap": True,
-                "text": findalltext2[0][0],
-                "color": "#0000C6",
-                "weight": "bold"
-              },
-              {
-                "type": "text",
-                "size": "xl",
-                "wrap": True,
-                "text": findalltext2[0][2],
-                "color": "#0000C6",
-                "weight": "bold"
-              },
-              {
-                "type": "text",
-                "color": "#ffffffcc",
-                "size": "md",
-                "contents": [
-                  {
-                    "type": "span",
-                    "text": findalltext2[0][3],
-                    "color": colors[0]
-                  }
-                ]
-              },
-              {
-                "type": "text",
-                "color": "#ffffffcc",
-                "size": "md",
-                "contents": [
-                  {
-                    "type": "span",
-                    "text": findalltext2[0][4],
-                    "color": colors[1]
-                  }
-                ]
-              },
-              {
-                "type": "text",
-                "color": "#ffffffcc",
-                "size": "md",
-                "contents": [
-                  {
-                    "type": "span",
-                    "text": findalltext2[0][5],
-                    "color": colors[2]
-                  }
-                ]
-              },
-              {
-                "type": "text",
-                "color": "#ffffffcc",
-                "size": "md",
-                "contents": [
-                  {
-                    "type": "span",
-                    "text": findalltext2[0][6],
-                    "color": colors[3]
-                  }
-                ]
-              }
-            ],
-            "spacing": "sm"
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "size": "xxl",
-                    "wrap": True,
-                    "margin": "lg",
-                    "color": "#FF0000",
-                    "text": findalltext2[0][7],
-                    "weight": "bold"
-                  }
-                ]
-              }
-            ],
-            "paddingAll": "13px",
-            "backgroundColor": "#ffffff1A",
-            "cornerRadius": "2px",
-            "margin": "xl"
-          }
-        ]
-      }
-    ],
-    "paddingAll": "20px",
-    "backgroundColor": "#F0DAD2"
-  }
-}  
+#         bubble2 = {
+#   "type": "bubble",
+#   "header": {
+#     "type": "box",
+#     "layout": "vertical",
+#     "contents": [
+#       {
+#         "type": "box",
+#         "layout": "horizontal",
+#         "contents": [
+#           {
+#             "type": "image",
+#             "url": "https://p2.bahamut.com.tw/HOME/53/creation_blackxblue.PNG",
+#             "size": "full",
+#             "aspectMode": "cover",
+#             "gravity": "center",
+#             "flex": 1
+#           }
+#         ]
+#       }
+#     ],
+#     "paddingAll": "0px"
+#   },
+#   "body": {
+#     "type": "box",
+#     "layout": "vertical",
+#     "contents": [
+#       {
+#         "type": "box",
+#         "layout": "vertical",
+#         "contents": [
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "text",
+#                 "size": "xl",
+#                 "wrap": True,
+#                 "text": findalltext2[0][0],
+#                 "color": "#0000C6",
+#                 "weight": "bold"
+#               },
+#               {
+#                 "type": "text",
+#                 "size": "xl",
+#                 "wrap": True,
+#                 "text": findalltext2[0][2],
+#                 "color": "#0000C6",
+#                 "weight": "bold"
+#               },
+#               {
+#                 "type": "text",
+#                 "color": "#ffffffcc",
+#                 "size": "md",
+#                 "contents": [
+#                   {
+#                     "type": "span",
+#                     "text": findalltext2[0][3],
+#                     "color": colors[0]
+#                   }
+#                 ]
+#               },
+#               {
+#                 "type": "text",
+#                 "color": "#ffffffcc",
+#                 "size": "md",
+#                 "contents": [
+#                   {
+#                     "type": "span",
+#                     "text": findalltext2[0][4],
+#                     "color": colors[1]
+#                   }
+#                 ]
+#               },
+#               {
+#                 "type": "text",
+#                 "color": "#ffffffcc",
+#                 "size": "md",
+#                 "contents": [
+#                   {
+#                     "type": "span",
+#                     "text": findalltext2[0][5],
+#                     "color": colors[2]
+#                   }
+#                 ]
+#               },
+#               {
+#                 "type": "text",
+#                 "color": "#ffffffcc",
+#                 "size": "md",
+#                 "contents": [
+#                   {
+#                     "type": "span",
+#                     "text": findalltext2[0][6],
+#                     "color": colors[3]
+#                   }
+#                 ]
+#               }
+#             ],
+#             "spacing": "sm"
+#           },
+#           {
+#             "type": "box",
+#             "layout": "vertical",
+#             "contents": [
+#               {
+#                 "type": "box",
+#                 "layout": "vertical",
+#                 "contents": [
+#                   {
+#                     "type": "text",
+#                     "size": "xxl",
+#                     "wrap": True,
+#                     "margin": "lg",
+#                     "color": "#FF0000",
+#                     "text": findalltext2[0][7],
+#                     "weight": "bold"
+#                   }
+#                 ]
+#               }
+#             ],
+#             "paddingAll": "13px",
+#             "backgroundColor": "#ffffff1A",
+#             "cornerRadius": "2px",
+#             "margin": "xl"
+#           }
+#         ]
+#       }
+#     ],
+#     "paddingAll": "20px",
+#     "backgroundColor": "#F0DAD2"
+#   }
+# }  
 
         bubble3 ={
   "type": "bubble",
@@ -402,6 +402,13 @@ def sendText2(event):  #傳送文字
         "text": findalltext2[0][0],
         "size": "xl",
         "color": "#0000E3",
+        "weight": "bold"
+      },
+      {
+        "type": "text",
+        "text": findalltext2[0][1],
+        "size": "xl",
+        "color": "#0008FF",
         "weight": "bold"
       },
       {
