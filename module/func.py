@@ -244,7 +244,7 @@ def sendText2(event):  #傳送文字
         findalltext2 = textall2.findall(res2)
         colors = []
         for i in range(3,7):
-            if  findalltext2[0][7][-1]+'.' in findalltext2[0][i]: colors.append(['#FF0000','bold'])
+            if  findalltext2[0][7][-1] == findalltext2[0][i][0]: colors.append(['#FF0000','bold'])
             else:colors.append(["#000000","regular"])
         
         
