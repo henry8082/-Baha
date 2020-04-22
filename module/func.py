@@ -6,7 +6,7 @@ from linebot.models import TextSendMessage,TemplateSendMessage,CarouselTemplate,
 import requests
 import re
 from bs4 import BeautifulSoup
-from selenium import webdriver
+#from selenium import webdriver
 import os
 import datetime
 import traceback
@@ -17,12 +17,12 @@ except ImportError:
 from invoiceapi.models import users
 
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options= chrome_options)
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options= chrome_options)
 
 
 def sendText1(event):  #查詢勇者福利社
