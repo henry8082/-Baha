@@ -5,6 +5,9 @@ from linebot.models import TextSendMessage,TemplateSendMessage,CarouselTemplate,
 
 import requests
 import re
+from bs4 import BeautifulSoup
+from selenium import webdriver
+import os
 import datetime
 import traceback
 try:
@@ -14,6 +17,12 @@ except ImportError:
 from invoiceapi.models import users
 
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options= chrome_options)
 
 
 def sendText1(event):  #查詢勇者福利社
@@ -240,7 +249,10 @@ def sendText2(event):  #傳送文字
         # if formatted_today in findalltext[0][1]:
         url2 = 'https://home.gamer.com.tw/'+findalltext[0][0]
         res2 = requests.get(url2).text
-        textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
+        
+        tag = r"""<div>&#91;(.+)&#93;</div><div>(.+)</div><div>(.+)</div><div>(.+)</div><div>(.+)</div><div>(.+)</div><div>(.+)</div><div><br></div><div>(.+)</div></div>"""
+        textall2 = re.compile(tag)
+        #textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
         findalltext2 = textall2.findall(res2)
         colors = []
         for i in range(3,7):
@@ -544,6 +556,40 @@ def sendText3(event):  #傳送文字
         line_bot_api.reply_message(event.reply_token,text2)
     except Exception as e:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text = 'traceback.format_exc():\n%s' % traceback.format_exc()))
+
+def sendText4(event):  #傳送linetoday
+    def parse_source(url):
+        #driver = webdriver.Chrome(r"C:\Users\user\Desktop\聯成助教資料\練習\chromedriver")
+        driver.get(url)
+        soup =  BeautifulSoup(driver.page_source, 'lxml')
+        hrefs = soup.find_all('a','lnk vLink')
+        for href in hrefs:
+            #print(href['href'],'\n')
+            yield parse_detail(href['href'])
+    def parse_detail(url):
+        driver.get(url)
+        res = BeautifulSoup(driver.page_source, 'lxml')
+        short_url = res.find('meta',property="og:url")['content'].split("-")[-1]
+        href = "https://today.line.me/TW/pc/article/{}?utm_source=copyshare".format(short_url)
+        title = res.find('meta',property="og:title")['content'].replace('【TODAY 看世界】','').replace('TODAY 看世界 | ','')
+        # resq = requests.get('https://today.line.me/tw/article/%E7%A2%BA%E8%A8%BA%E6%95%B8%E9%AB%98%E5%B1%85%E5%85%A8%E7%90%83%E7%AC%AC5+%E6%AD%BB%E4%BA%A1%E7%8E%87%E5%8D%BB%E5%83%851+%E5%BE%B7%E5%9C%8B%E7%9A%84%E4%BD%9C%E6%B3%95%E7%9C%9F%E8%83%BD%E6%9C%89%E6%95%88%E9%98%B2%E7%96%AB%E5%97%8E%EF%BC%9F-1Ego09') #測試用requests的方式是否可以成功
+        # res = bs(resq.text)
+        time = res.find('dd','date').text.replace('發布時間 ','')
+        time = datetime.datetime.strptime(time, '%Y年%m月%d日%H:%M')
+        text1 = res.find('article','bx-dsc').text.strip()+'\n'+res.find('article','bx-dsc').find_all('p')[1].text.replace(u'\u3000',u'')
+        article = text1.split("《TODAY 看世界》")[0]
+        return {"href":href,"title":title,"time":time,"article":article}   
+    
+    try:
+        url = 'https://today.line.me/TW/publisher/101508'
+        df4 = pandas.DataFrame(list(parse_source('https://today.line.me/TW/publisher/101508')))
+        all_text = '{}\n{}\n{}\n{}\n{}\n{}'.format(findalltext2[0][0],findalltext2[0][2],findalltext2[0][3],findalltext2[0][4],findalltext2[0][5],findalltext2[0][6])
+        text2 = [TextSendMessage(text= '{}'.format(all_text)),TextSendMessage(text = '{}'.format(findalltext2[0][7]))]
+        line_bot_api.reply_message(event.reply_token,text2)
+    except Exception as e:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text = 'traceback.format_exc():\n%s' % traceback.format_exc()))
+
+
 
 def sendUse(event):  #使用說明
     try:
