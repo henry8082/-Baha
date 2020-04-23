@@ -251,9 +251,12 @@ def sendText2(event):  #傳送文字
         res2 = requests.get(url2).text
         
         tag = r"""<div>&#91;(.+)&#93;</div><div>(.+)</div><div>(.+)</div><div>(.+)</div><div>(.+)</div><div>(.+)</div><div>(.+)</div><div><br></div><div>(.+)</div></div>"""
-        textall2 = re.compile(tag)
-        #textall2 = re.compile('''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
+        textall2 = re.compile(tag)        
         findalltext2 = textall2.findall(res2)
+        if len(findalltext2) ==0:
+            textall2 = re.compile(r'''<div class="MSG-list8C">&#91;(.+)&#93;<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<br>(.+)<div><br></div><div>(.+)</div></div>''')
+            findalltext2 = textall2.findall(res2)
+            
         colors = []
         for i in range(3,7):
             if  findalltext2[0][7][-1] == findalltext2[0][i][0]: colors.append(['#FF0000','bold'])
