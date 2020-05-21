@@ -30,13 +30,7 @@ def callback(request):
                     unit = users.objects.create(uid=userid, state='no')
                     unit.save()
                 mtext = event.message.text
-                if mtext == '@使用說明':
-                    func.sendUse(event)
-
-                # elif mtext == '@顯示本期中獎號碼':
-                #     func.showCurrent(event)
-
-                elif mtext == '@巴哈勇者福利社':
+                if mtext == '@巴哈勇者福利社':
                     func.sendText1(event)
                     
                 elif mtext == '@動漫通':
@@ -45,18 +39,6 @@ def callback(request):
                 elif mtext == '@動漫通1':
                     func.sendText3(event)      
                     
-                # elif mtext == '@顯示前期中獎號碼':
-                #     func.showOld(event)
-
-                # elif mtext == '@輸入發票最後三碼':
-                #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='請輸入發票最後三碼進行對獎！'))
-
-                # elif len(mtext) == 3 and mtext.isdigit():
-                #     func.show3digit(event, mtext, userid)
-
-                # elif len(mtext) == 5 and mtext.isdigit():
-                #     func.show5digit(event, mtext, userid)
-
         return HttpResponse()
 
     else:
