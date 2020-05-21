@@ -6,7 +6,7 @@
 
 -使用 heroku / django / line bot / requests / re(利用正則找網頁的內容)  / Flex Messages
 
-<img src="https://github.com/henry8082/-Baha/blob/master/%E5%B7%B4%E5%93%88/S__63660095.jpg" width = "30%" /> <img src="https://github.com/henry8082/-Baha/blob/master/%E5%B7%B4%E5%93%88/S__63660096.jpg" width = "30%" />   
+<img src="https://github.com/henry8082/-Baha/blob/master/%E5%B7%B4%E5%93%88/S__63660095.jpg" width = "60%" /> <img src="https://github.com/henry8082/-Baha/blob/master/%E5%B7%B4%E5%93%88/S__63660096.jpg" width = "30%" />   
 ---------------------------------------
 
 重要設定：
